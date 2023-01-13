@@ -65,7 +65,7 @@ const App = () => {
       
       {modalImg && (
         <Modal onClose={onModalClose}>
-          <img src={searchImg} alt={pictures.tags} />
+          <img src={modalImg} alt={pictures.tags} />
         </Modal>
       )}
       <Button

@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import PropTypes from 'prop-types';
+import { ModalBox, Overlay } from './styled';
 
 // import { ModalBox, Overlay } from "./styled"
 
@@ -30,9 +31,9 @@ const Modal  = ({ children, onClose }) =>{
   };
 
   return createPortal(
-    <div className={""} onClick={handleBackdropClick}>
-      <div className={""}>{children}</div>
-    </div>,
+    <Overlay onClick={handleBackdropClick}>
+      <ModalBox>{children}</ModalBox>
+    </Overlay>,
     modalRoot
   );
 };
