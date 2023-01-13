@@ -1,14 +1,15 @@
 import React, { useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import PropTypes from 'prop-types';
-import { ModalBox, Overlay } from "./styled"
+
+// import { ModalBox, Overlay } from "./styled"
 
 
 
 
 const modalRoot = document.querySelector('#modal-root');
 
-const Modal = ({ children, onClose }) =>{
+const Modal  = ({ children, onClose }) =>{
   useEffect(() => {
     const handleKeyDown = evt => {
       if (evt.code === 'Escape') {
@@ -29,8 +30,8 @@ const Modal = ({ children, onClose }) =>{
   };
 
   return createPortal(
-    <div className={Overlay} onClick={handleBackdropClick}>
-      <div className={Modal}>{children}</div>
+    <div className={""} onClick={handleBackdropClick}>
+      <div className={""}>{children}</div>
     </div>,
     modalRoot
   );
