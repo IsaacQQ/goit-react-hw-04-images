@@ -1,26 +1,43 @@
-import React from "react";
+import React, { useEffect } from 'react';
+import { createPortal } from 'react-dom';
+import PropTypes from 'prop-types';
 import { ModalBox, Overlay } from "./styled"
 
-export class Modal extends React.Component {
-    onKeyDown = e => {
-        if (e.code === 'Escape') {
-            this.props.closeModal();
-        }
+
+
+
+const modalRoot = document.querySelector('#modal-root');
+
+const Modal = ({ children, onClose }) =>{
+  useEffect(() => {
+    const handleKeyDown = evt => {
+      if (evt.code === 'Escape') {
+        onClose();
+      }
     };
 
-    onBackdropClick = e => {
-        if (e.currentTarget === e.target) {
-            this.props.closeModal();
-        }
+    window.addEventListener('keydown', handleKeyDown);
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
     };
+  }, [onClose]);
 
-    render() {
-        return (
-            <Overlay onClick={this.onBackdropClick}>
-                <ModalBox>
-                    <img src={this.props.url} alt="" />
-                </ModalBox>
-            </Overlay>
-        );
+  const handleBackdropClick = evt => {
+    if (evt.target === evt.currentTarget) {
+      onClose();
     }
+  };
+
+  return createPortal(
+    <div className={Overlay} onClick={handleBackdropClick}>
+      <div className={Modal}>{children}</div>
+    </div>,
+    modalRoot
+  );
 };
+Modal.propTypes = {
+  onClose: PropTypes.func.isRequired,
+  children: PropTypes.node,
+};
+
+export default Modal;

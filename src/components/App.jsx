@@ -3,7 +3,7 @@ import { SearchBar } from "./searchbar/Searchbar";
 import { ImageGallery } from "./ImageGallery/imageGallery";
 import { getDataByName } from "./api/api";
 import { Button } from "./button/button";
-import { Modal } from "./modal/modal"
+import  Modal  from "./modal/modal"
 import { useEffect } from "react";
 import { useState } from "react";
 
@@ -11,8 +11,7 @@ const App = () => {
   const [pictures, setPictures] = useState([]);
   const [searchQ, setSearchQ] = useState("");
   const [page, setPage] = useState(1);
-  
-  const [modalImg, setModalImg] = useState("");
+  const [modalImg, setModalImg] = React.useState("");
 
   useEffect(() => {
     if (searchQ) {
@@ -65,10 +64,10 @@ const App = () => {
       />
       
       {modalImg && (
-        <Modal
-          closeModal={onModalClose}
-          url={modalImg}
-        />)}
+        <Modal onClose={onModalClose}>
+          <img src={searchImg} alt={pictures.tags} />
+        </Modal>
+      )}
       <Button
         onClick={onClickLoadMore}
         Pictures={pictures}
